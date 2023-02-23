@@ -4,6 +4,22 @@
 */
 
 $(document).ready(function () {
+    const idList = [];
+    $('.amenity-list input:checkbox').change((e) => {
+        const inputElement = $(e.target)
+        if ( inputElement.prop('checked')) {
+            idList.push(inputElement.data('id'));
+            const h4Tag = $('DIV.amenities h4');
+            h4Tag.append(inputElement.data('name')+ ' ');
+        } else {
+        const index = idList.indexOf(inputElement.data('id'));
+        if (index > -1) {
+        idList.splice(index, 1);
+        }
+        $('DIV.amenities h4').html($('DIV.amenities h4').html().replace(inputElement.data('name'), ''));
+        }
+    });
+
     const url = 'http://0.0.0.0:5001/api/v1/status/';
     $.get(url, function(data, responseStatus) {
         if (data.status === 'OK') {
@@ -15,9 +31,9 @@ $(document).ready(function () {
 
     // fetch data for place_search endpoint
     function templatePrint (data) {
-        data.forEach((place) =>
-            $('section.places').append(
-                    `<article>
+      data.forEach((place) =>{
+        $('section.places').append(
+          `<article>
 	    <div class="title_box">
 	    <h2>${place.name}</h2>
 	    <div class="price_by_night">$${place.price_by_night}</div>
@@ -34,13 +50,14 @@ $(document).ready(function () {
 	    ${place.description}
           </div>
 	        </article>`
-            );
         );
+	console.log(place.description);
+      });
     }
     // $.post(url, [data], [callback], [type]);
     $.ajax({
         type: 'POST',
-        url:`${HOST}/api/v1/place_search`,
+        url: 'http://0.0.0.0:5001/api/v1/places_search/',
         data: '{}',
         contentType: 'application/json',
         success: (data) => { templatePrint(data); },
