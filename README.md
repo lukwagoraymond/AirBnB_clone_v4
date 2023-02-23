@@ -150,6 +150,11 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
+## Updates to AirBnB Clone_v4
+
+* Updated frontend to display status of Backend REST API
+* Added a mechanism for dynamically populating places via the frontend; filtering the places based on amenities
+
 ## Bugs
 No known bugs at this time. 
 
@@ -158,6 +163,8 @@ Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twit
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)  
 Jhoan Zamora - [Github](https://github.com/jzamora5) / [Twitter](https://twitter.com/JhoanZamora10)  
 David Ovalle - [Github](https://github.com/Nukemenonai) / [Twitter](https://twitter.com/disartDave)
+Raymond Lukwago - [Github](https://github.com/lukwagoraymond) / [Twitter](https://twitter.com/lukwagoraymond)
+Kevin Kirimi - [Github](https://github.com/iakev) / [Twitter](https://twitter.com/iakev)
 
 Second part of Airbnb: Joann Vuong
 ## License
