@@ -51,7 +51,6 @@ $(document).ready(function () {
           </div>
 	        </article>`
         );
-	console.log(place.description);
       });
     }
     // $.post(url, [data], [callback], [type]);
