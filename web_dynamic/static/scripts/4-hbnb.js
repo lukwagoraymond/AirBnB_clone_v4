@@ -62,17 +62,15 @@ $(document).ready(function () {
         success: (data) => { templatePrint(data); },
         dataType: 'json'
     });
-
-    $('BUTTON#filter-amenities').on('click', function() {
-        const amenitiesIds = {'amenities': idList};
-        console.log(amenitiesIds);
-        /*$.ajax({
-        type: 'POST',
-        url: 'http://0.0.0.0:5001/api/v1/places_search/',
-        data: '{"amenities": idList}',
-        contentType: 'application/json',
-        success: (data) => { templatePrint(data); },
-        dataType: 'json' */
+  $(':button').click(() => {
+    const amenityIds = {'amenities': idList};
+    $.ajax({
+      type: 'POST',
+      url: 'http://0.0.0.0:5001/api/v1/places_search/',
+      data: JSON.stringify(amenityIds),
+      contentType: 'application/json',
+      success: (data) => { templatePrint(data); },
+      dataType: 'json'
     });
-    })
+  });
 });

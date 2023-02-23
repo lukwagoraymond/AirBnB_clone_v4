@@ -1,4 +1,5 @@
 $(document).ready(() => {
+  $(':button').css('color', 'green');
   const idList = [];
   $('.amenity-list input:checkbox').change((e) => {
     const inputElement = $(e.target)
