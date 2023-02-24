@@ -29,6 +29,7 @@ button:hover {
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 600;
+    display: inline-block;
 }
 .filters h3 {
     margin-left: 15%;
@@ -49,6 +50,13 @@ button:hover {
 .amenities {
     height: 100%;
     width: 25%;
+}
+
+input[type=checkbox] {
+    position: relative;
+    width: auto;
+    height: auto;
+    left: -10px;
 }
 
 .popover {
