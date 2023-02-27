@@ -91,16 +91,9 @@ ${place.description}
     $('H2#review-title #my-span').click((e) => {
       const spanElement = $(e.target);
       if (spanElement.text() == 'show'){
-	/*$('DIV.reviews').append(
-`<ul>
-<li>
-<h3></h3>
-<p></p>
-</li>
-</ul>`
-	);*/
 	const placeId = spanElement.data('place');
 	const userId = spanElement.data('user');
+	spanElement.parent().parent().append('<ul></l>');
 	let user = '';
 	$.ajax({
 	  type: 'GET',
@@ -121,17 +114,12 @@ ${place.description}
 		  console.log(review);
 		  const date = new Date(review.created_at).toUTCString();
 		  if (spanElement.data('place') === review.place_id) {
-		    spanElement.parent().parent().append(
-`<ul>
-<li>
+		    spanElement.parent().siblings('ul').append(
+`<li>
 <h3>From ${user.first_name} ${user.last_name} the ${date}</h3>
 <p>${review.text}</p>
-</li>
-</ul>`
+</li>`
 	);
-		//    spanElement.parent().siblings('ul').children('li').children('h3').text(`From ${user.first_name} ${user.last_name}
-//the ${date}`);
-		  //  spanElement.parent().siblings('ul').children('li').children('p').text(`${review.text}`);
 		  }
 		});
 		spanElement.text('hide');
@@ -163,14 +151,55 @@ place.number_bathrooms !== 1 ? 's' : ''}</div>
 <div class="description">
 ${place.description}
 </div>
+<div class="reviews">
+<h2 id="review-title">Reviews <span id="my-span" data-place=${place.id} data-user=${place.user_id}>show</span></h2>
+</div>
 </article>`
       );
-    }); 
+    });
+    $('H2#review-title #my-span').click((e) => {
+      const spanElement = $(e.target);
+      if (spanElement.text() == 'show'){
+	const placeId = spanElement.data('place');
+	const userId = spanElement.data('user');
+	spanElement.parent().parent().append('<ul></l>');
+	let user = '';
+	$.ajax({
+	  type: 'GET',
+	  url: `http://0.0.0.0:5001/api/v1/users/${userId}`,
+	  contentType: 'application/json',
+	  dataType: 'json'
+	})
+	  .done(data => {
+	    user = data;
+	    $.ajax({
+	      type: 'GET',
+	      url: `http://0.0.0.0:5001/api/v1/places/${placeId}/reviews`,
+	      contentType: 'application/json',
+	      dataType: 'json'
+	    })
+	      .done((data) => {
+		data.forEach((review) => {
+		  console.log(review);
+		  const date = new Date(review.created_at).toUTCString();
+		  if (spanElement.data('place') === review.place_id) {
+		    spanElement.parent().siblings('ul').append(
+`<li>
+<h3>From ${user.first_name} ${user.last_name} the ${date}</h3>
+<p>${review.text}</p>
+</li>`
+	);
+		  }
+		});
+		spanElement.text('hide');
+	      });
+	  });
+      } else {
+	spanElement.parent().siblings('ul').detach();
+	spanElement.text('show');
+      }
+      });
   }
-  $('#review-title > #my-span').click(() => {
-    alert('span clicked');
-  });
-  // $.post(url, [data], [callback], [type]);
   $.ajax({
     type: 'POST',
     url: 'http://0.0.0.0:5001/api/v1/places_search/',
